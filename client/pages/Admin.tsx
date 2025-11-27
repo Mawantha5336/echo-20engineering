@@ -538,6 +538,124 @@ export default function Admin() {
             </div>
           </div>
         )}
+
+        {/* P/O Projects Tab */}
+        {activeTab === "poProjects" && (
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Form */}
+            <div className="lg:col-span-1">
+              <div className="bg-card rounded-xl border border-border p-8 sticky top-20">
+                <h2 className="text-xl font-bold mb-6">Add P/O Project</h2>
+                <form onSubmit={handleAddPOProject} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">P/O Date</label>
+                    <Input
+                      type="text"
+                      placeholder="e.g., 26.5.2009"
+                      value={poProjectForm.poDate}
+                      onChange={(e) =>
+                        setPOProjectForm({ ...poProjectForm, poDate: e.target.value })
+                      }
+                      className="bg-background border-border"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Client</label>
+                    <Input
+                      type="text"
+                      placeholder="Client name"
+                      value={poProjectForm.client}
+                      onChange={(e) =>
+                        setPOProjectForm({ ...poProjectForm, client: e.target.value })
+                      }
+                      className="bg-background border-border"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Product</label>
+                    <Input
+                      type="text"
+                      placeholder="Product name/description"
+                      value={poProjectForm.product}
+                      onChange={(e) =>
+                        setPOProjectForm({ ...poProjectForm, product: e.target.value })
+                      }
+                      className="bg-background border-border"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Project Status</label>
+                    <textarea
+                      placeholder="Project status or details"
+                      value={poProjectForm.projectStatus}
+                      onChange={(e) =>
+                        setPOProjectForm({ ...poProjectForm, projectStatus: e.target.value })
+                      }
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                      rows={4}
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-lg"
+                  >
+                    <Plus size={20} className="mr-2" />
+                    Add P/O Project
+                  </Button>
+                </form>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="lg:col-span-2">
+              <div className="bg-card rounded-xl border border-border overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border bg-muted">
+                        <th className="px-6 py-4 text-left text-sm font-semibold">P/O Date</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">Client</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">Product</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {poProjects.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">
+                            No P/O projects added yet
+                          </td>
+                        </tr>
+                      ) : (
+                        poProjects.map((project) => (
+                          <tr key={project.id} className="border-b border-border hover:bg-muted transition">
+                            <td className="px-6 py-4 text-sm">{project.poDate}</td>
+                            <td className="px-6 py-4 text-sm">{project.client}</td>
+                            <td className="px-6 py-4 text-sm max-w-xs truncate" title={project.product}>{project.product}</td>
+                            <td className="px-6 py-4 text-sm max-w-xs truncate" title={project.projectStatus}>{project.projectStatus}</td>
+                            <td className="px-6 py-4 text-sm">
+                              <button
+                                onClick={() => handleDeletePOProject(project.id)}
+                                className="text-destructive hover:bg-destructive/10 p-2 rounded transition"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
