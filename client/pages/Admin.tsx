@@ -22,6 +22,14 @@ interface EquipmentData {
   image?: string;
 }
 
+interface POProjectData {
+  id: string;
+  poDate: string;
+  client: string;
+  product: string;
+  projectStatus: string;
+}
+
 export default function Admin() {
   const [projects, setProjects] = useState<ProjectData[]>([
     {
@@ -57,7 +65,31 @@ export default function Admin() {
     },
   ]);
 
-  const [activeTab, setActiveTab] = useState<"projects" | "equipment">("projects");
+  const [poProjects, setPOProjects] = useState<POProjectData[]>([
+    {
+      id: "1",
+      poDate: "26.5.2009",
+      client: "CEB",
+      product: "1Mvps Solar Power Plant – Anuradhapura",
+      projectStatus: "This is DAM own project Signed the PPA on 19th June 2020",
+    },
+    {
+      id: "2",
+      poDate: "8.1.2009",
+      client: "NERDC",
+      product: "Ac source",
+      projectStatus: "Completed",
+    },
+    {
+      id: "3",
+      poDate: "21.2.2009",
+      client: "SLSEA",
+      product: "Solar Testing instrument",
+      projectStatus: "Completed",
+    },
+  ]);
+
+  const [activeTab, setActiveTab] = useState<"projects" | "equipment" | "poProjects">("projects");
   const [projectForm, setProjectForm] = useState({
     projectName: "",
     customer: "",
@@ -71,6 +103,13 @@ export default function Admin() {
     title: "",
     description: "",
     image: "",
+  });
+
+  const [poProjectForm, setPOProjectForm] = useState({
+    poDate: "",
+    client: "",
+    product: "",
+    projectStatus: "",
   });
 
   const handleAddProject = (e: React.FormEvent) => {
@@ -156,6 +195,42 @@ export default function Admin() {
   const handleDeleteEquipment = (id: string) => {
     setEquipment(equipment.filter((e) => e.id !== id));
     toast.success("Equipment deleted");
+  };
+
+  const handleAddPOProject = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (
+      !poProjectForm.poDate ||
+      !poProjectForm.client ||
+      !poProjectForm.product ||
+      !poProjectForm.projectStatus
+    ) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    const newPOProject: POProjectData = {
+      id: Date.now().toString(),
+      poDate: poProjectForm.poDate,
+      client: poProjectForm.client,
+      product: poProjectForm.product,
+      projectStatus: poProjectForm.projectStatus,
+    };
+
+    setPOProjects([...poProjects, newPOProject]);
+    setPOProjectForm({
+      poDate: "",
+      client: "",
+      product: "",
+      projectStatus: "",
+    });
+    toast.success("P/O Project added successfully");
+  };
+
+  const handleDeletePOProject = (id: string) => {
+    setPOProjects(poProjects.filter((p) => p.id !== id));
+    toast.success("P/O Project deleted");
   };
 
   return (
