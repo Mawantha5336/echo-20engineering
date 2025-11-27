@@ -31,9 +31,15 @@ export default function Layout() {
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6">
               <Link to="/" className="hover:text-primary transition">
                 Home
+              </Link>
+              <Link to="/projects-equipment" className="hover:text-primary transition">
+                Projects & Equipment
+              </Link>
+              <Link to="/po-projects" className="hover:text-primary transition">
+                P/O Projects
               </Link>
               <Link to="/admin" className="hover:text-primary transition">
                 Admin Panel
@@ -83,6 +89,20 @@ export default function Layout() {
                 onClick={() => setMenuOpen(false)}
               >
                 Home
+              </Link>
+              <Link
+                to="/projects-equipment"
+                className="block px-2 py-2 hover:bg-muted rounded transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Projects & Equipment
+              </Link>
+              <Link
+                to="/po-projects"
+                className="block px-2 py-2 hover:bg-muted rounded transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                P/O Projects
               </Link>
               <Link
                 to="/admin"
@@ -142,6 +162,22 @@ export default function Layout() {
                     className="text-muted-foreground hover:text-primary transition"
                   >
                     Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/projects-equipment"
+                    className="text-muted-foreground hover:text-primary transition"
+                  >
+                    Projects & Equipment
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/po-projects"
+                    className="text-muted-foreground hover:text-primary transition"
+                  >
+                    P/O Projects
                   </Link>
                 </li>
                 <li>

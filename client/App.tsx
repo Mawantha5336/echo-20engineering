@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import ProjectsEquipment from "./pages/ProjectsEquipment";
+import POProjectsView from "./pages/POProjectsView";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -28,6 +30,8 @@ const AppRoutes = () => (
         }
       />
       <Route path="/login" element={<Login />} />
+      <Route path="/projects-equipment" element={<ProjectsEquipment />} />
+      <Route path="/po-projects" element={<POProjectsView />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Route>

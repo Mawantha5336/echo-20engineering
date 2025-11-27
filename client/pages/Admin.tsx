@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Plus, Trash2, Image as ImageIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -31,63 +31,11 @@ interface POProjectData {
 }
 
 export default function Admin() {
-  const [projects, setProjects] = useState<ProjectData[]>([
-    {
-      id: "1",
-      projectName: "Site Expansion Phase 1",
-      customer: "Teleco Lanka",
-      oem: "Ericsson",
-      operator: "Dialog",
-      activity: "Installation",
-      noOfSites: 35,
-    },
-    {
-      id: "2",
-      projectName: "Fiber Rollout North",
-      customer: "ConnectNet",
-      oem: "Huawei",
-      operator: "SLT",
-      activity: "Maintenance",
-      noOfSites: 55,
-    },
-  ]);
-
-  const [equipment, setEquipment] = useState<EquipmentData[]>([
-    {
-      id: "1",
-      title: "Fiber Optic Splicing Unit",
-      description: "Precision equipment for seamless fiber connections",
-    },
-    {
-      id: "2",
-      title: "OTDR Testing Equipment",
-      description: "Advanced diagnostics for network quality assurance",
-    },
-  ]);
-
-  const [poProjects, setPOProjects] = useState<POProjectData[]>([
-    {
-      id: "1",
-      poDate: "26.5.2009",
-      client: "CEB",
-      product: "1Mvps Solar Power Plant – Anuradhapura",
-      projectStatus: "This is DAM own project Signed the PPA on 19th June 2020",
-    },
-    {
-      id: "2",
-      poDate: "8.1.2009",
-      client: "NERDC",
-      product: "Ac source",
-      projectStatus: "Completed",
-    },
-    {
-      id: "3",
-      poDate: "21.2.2009",
-      client: "SLSEA",
-      product: "Solar Testing instrument",
-      projectStatus: "Completed",
-    },
-  ]);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+  const [equipment, setEquipment] = useState<EquipmentData[]>([]);
+  const [poProjects, setPOProjects] = useState<POProjectData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const [activeTab, setActiveTab] = useState<
     "projects" | "equipment" | "poProjects"
@@ -114,7 +62,42 @@ export default function Admin() {
     projectStatus: "",
   });
 
-  const handleAddProject = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+  const fetchAllData = async () => {
+    setLoading(true);
+    try {
+      const [projectsRes, equipmentRes, poProjectsRes] = await Promise.all([
+        fetch("/api/projects"),
+        fetch("/api/equipment"),
+        fetch("/api/po-projects"),
+      ]);
+
+      if (projectsRes.ok) {
+        const data = await projectsRes.json();
+        setProjects(data);
+      }
+
+      if (equipmentRes.ok) {
+        const data = await equipmentRes.json();
+        setEquipment(data);
+      }
+
+      if (poProjectsRes.ok) {
+        const data = await poProjectsRes.json();
+        setPOProjects(data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Failed to load data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddProject = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -129,26 +112,42 @@ export default function Admin() {
       return;
     }
 
-    const newProject: ProjectData = {
-      id: Date.now().toString(),
-      projectName: projectForm.projectName,
-      customer: projectForm.customer,
-      oem: projectForm.oem,
-      operator: projectForm.operator,
-      activity: projectForm.activity,
-      noOfSites: parseInt(projectForm.noOfSites),
-    };
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectName: projectForm.projectName,
+          customer: projectForm.customer,
+          oem: projectForm.oem,
+          operator: projectForm.operator,
+          activity: projectForm.activity,
+          noOfSites: parseInt(projectForm.noOfSites),
+        }),
+      });
 
-    setProjects([...projects, newProject]);
-    setProjectForm({
-      projectName: "",
-      customer: "",
-      oem: "",
-      operator: "",
-      activity: "",
-      noOfSites: "",
-    });
-    toast.success("Project added successfully");
+      if (response.ok) {
+        const newProject = await response.json();
+        setProjects([...projects, newProject]);
+        setProjectForm({
+          projectName: "",
+          customer: "",
+          oem: "",
+          operator: "",
+          activity: "",
+          noOfSites: "",
+        });
+        toast.success("Project added successfully");
+      } else {
+        toast.error("Failed to add project");
+      }
+    } catch (error) {
+      console.error("Error adding project:", error);
+      toast.error("Failed to add project");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleImageUpload = (
@@ -168,7 +167,7 @@ export default function Admin() {
     reader.readAsDataURL(file);
   };
 
-  const handleAddEquipment = (e: React.FormEvent) => {
+  const handleAddEquipment = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!equipmentForm.title || !equipmentForm.description) {
@@ -176,33 +175,75 @@ export default function Admin() {
       return;
     }
 
-    const newEquipment: EquipmentData = {
-      id: Date.now().toString(),
-      title: equipmentForm.title,
-      description: equipmentForm.description,
-      image: equipmentForm.image,
-    };
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/equipment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: equipmentForm.title,
+          description: equipmentForm.description,
+          image: equipmentForm.image,
+        }),
+      });
 
-    setEquipment([...equipment, newEquipment]);
-    setEquipmentForm({
-      title: "",
-      description: "",
-      image: "",
-    });
-    toast.success("Equipment added successfully");
+      if (response.ok) {
+        const newEquipment = await response.json();
+        setEquipment([...equipment, newEquipment]);
+        setEquipmentForm({
+          title: "",
+          description: "",
+          image: "",
+        });
+        toast.success("Equipment added successfully");
+      } else {
+        toast.error("Failed to add equipment");
+      }
+    } catch (error) {
+      console.error("Error adding equipment:", error);
+      toast.error("Failed to add equipment");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleDeleteProject = (id: string) => {
-    setProjects(projects.filter((p) => p.id !== id));
-    toast.success("Project deleted");
+  const handleDeleteProject = async (id: string) => {
+    try {
+      const response = await fetch(`/api/projects/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setProjects(projects.filter((p) => p.id !== id));
+        toast.success("Project deleted");
+      } else {
+        toast.error("Failed to delete project");
+      }
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      toast.error("Failed to delete project");
+    }
   };
 
-  const handleDeleteEquipment = (id: string) => {
-    setEquipment(equipment.filter((e) => e.id !== id));
-    toast.success("Equipment deleted");
+  const handleDeleteEquipment = async (id: string) => {
+    try {
+      const response = await fetch(`/api/equipment/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setEquipment(equipment.filter((e) => e.id !== id));
+        toast.success("Equipment deleted");
+      } else {
+        toast.error("Failed to delete equipment");
+      }
+    } catch (error) {
+      console.error("Error deleting equipment:", error);
+      toast.error("Failed to delete equipment");
+    }
   };
 
-  const handleAddPOProject = (e: React.FormEvent) => {
+  const handleAddPOProject = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -215,28 +256,68 @@ export default function Admin() {
       return;
     }
 
-    const newPOProject: POProjectData = {
-      id: Date.now().toString(),
-      poDate: poProjectForm.poDate,
-      client: poProjectForm.client,
-      product: poProjectForm.product,
-      projectStatus: poProjectForm.projectStatus,
-    };
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/po-projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          poDate: poProjectForm.poDate,
+          client: poProjectForm.client,
+          product: poProjectForm.product,
+          projectStatus: poProjectForm.projectStatus,
+        }),
+      });
 
-    setPOProjects([...poProjects, newPOProject]);
-    setPOProjectForm({
-      poDate: "",
-      client: "",
-      product: "",
-      projectStatus: "",
-    });
-    toast.success("P/O Project added successfully");
+      if (response.ok) {
+        const newPOProject = await response.json();
+        setPOProjects([...poProjects, newPOProject]);
+        setPOProjectForm({
+          poDate: "",
+          client: "",
+          product: "",
+          projectStatus: "",
+        });
+        toast.success("P/O Project added successfully");
+      } else {
+        toast.error("Failed to add P/O project");
+      }
+    } catch (error) {
+      console.error("Error adding P/O project:", error);
+      toast.error("Failed to add P/O project");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleDeletePOProject = (id: string) => {
-    setPOProjects(poProjects.filter((p) => p.id !== id));
-    toast.success("P/O Project deleted");
+  const handleDeletePOProject = async (id: string) => {
+    try {
+      const response = await fetch(`/api/po-projects/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setPOProjects(poProjects.filter((p) => p.id !== id));
+        toast.success("P/O Project deleted");
+      } else {
+        toast.error("Failed to delete P/O project");
+      }
+    } catch (error) {
+      console.error("Error deleting P/O project:", error);
+      toast.error("Failed to delete P/O project");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -401,9 +482,14 @@ export default function Admin() {
 
                   <Button
                     type="submit"
+                    disabled={submitting}
                     className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-lg"
                   >
-                    <Plus size={20} className="mr-2" />
+                    {submitting ? (
+                      <Loader2 size={20} className="mr-2 animate-spin" />
+                    ) : (
+                      <Plus size={20} className="mr-2" />
+                    )}
                     Add Project
                   </Button>
                 </form>
@@ -567,9 +653,14 @@ export default function Admin() {
 
                   <Button
                     type="submit"
+                    disabled={submitting}
                     className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-lg"
                   >
-                    <Plus size={20} className="mr-2" />
+                    {submitting ? (
+                      <Loader2 size={20} className="mr-2 animate-spin" />
+                    ) : (
+                      <Plus size={20} className="mr-2" />
+                    )}
                     Add Equipment
                   </Button>
                 </form>
@@ -704,9 +795,14 @@ export default function Admin() {
 
                   <Button
                     type="submit"
+                    disabled={submitting}
                     className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-lg"
                   >
-                    <Plus size={20} className="mr-2" />
+                    {submitting ? (
+                      <Loader2 size={20} className="mr-2 animate-spin" />
+                    ) : (
+                      <Plus size={20} className="mr-2" />
+                    )}
                     Add P/O Project
                   </Button>
                 </form>
