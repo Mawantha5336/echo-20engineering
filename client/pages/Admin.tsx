@@ -614,31 +614,38 @@ export default function Admin() {
             <div className="lg:col-span-2">
               <div className="bg-card rounded-xl border border-border overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full table-fixed">
+                    <colgroup>
+                      <col style={{ width: "15%" }} />
+                      <col style={{ width: "15%" }} />
+                      <col style={{ width: "35%" }} />
+                      <col style={{ width: "25%" }} />
+                      <col style={{ width: "10%" }} />
+                    </colgroup>
                     <thead>
                       <tr className="border-b border-border bg-muted">
-                        <th className="px-6 py-4 text-left text-sm font-semibold">P/O Date</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Client</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Product</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Action</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">P/O Date</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">Client</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">Product</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">Status</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       {poProjects.length === 0 ? (
                         <tr>
-                          <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">
+                          <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
                             No P/O projects added yet
                           </td>
                         </tr>
                       ) : (
                         poProjects.map((project) => (
                           <tr key={project.id} className="border-b border-border hover:bg-muted transition">
-                            <td className="px-6 py-4 text-sm">{project.poDate}</td>
-                            <td className="px-6 py-4 text-sm">{project.client}</td>
-                            <td className="px-6 py-4 text-sm max-w-xs truncate" title={project.product}>{project.product}</td>
-                            <td className="px-6 py-4 text-sm max-w-xs truncate" title={project.projectStatus}>{project.projectStatus}</td>
-                            <td className="px-6 py-4 text-sm">
+                            <td className="px-4 py-4 text-sm whitespace-nowrap">{project.poDate}</td>
+                            <td className="px-4 py-4 text-sm whitespace-nowrap">{project.client}</td>
+                            <td className="px-4 py-4 text-sm truncate" title={project.product}>{project.product}</td>
+                            <td className="px-4 py-4 text-sm truncate" title={project.projectStatus}>{project.projectStatus}</td>
+                            <td className="px-4 py-4 text-sm flex justify-center">
                               <button
                                 onClick={() => handleDeletePOProject(project.id)}
                                 className="text-destructive hover:bg-destructive/10 p-2 rounded transition"
