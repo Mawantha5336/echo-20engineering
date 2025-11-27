@@ -12,9 +12,13 @@ export default function Layout() {
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-sm font-bold text-primary-foreground">EC</span>
+                <span className="text-sm font-bold text-primary-foreground">
+                  EC
+                </span>
               </div>
-              <span className="font-bold text-lg hidden sm:inline">Eco Engineering</span>
+              <span className="font-bold text-lg hidden sm:inline">
+                Eco Engineering
+              </span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
@@ -65,19 +69,26 @@ export default function Layout() {
             <div>
               <h3 className="font-bold mb-4">Eco Engineering</h3>
               <p className="text-muted-foreground text-sm">
-                Sustainable telecommunications infrastructure solutions for the digital future.
+                Sustainable telecommunications infrastructure solutions for the
+                digital future.
               </p>
             </div>
             <div>
               <h4 className="font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link to="/" className="text-muted-foreground hover:text-primary transition">
+                  <Link
+                    to="/"
+                    className="text-muted-foreground hover:text-primary transition"
+                  >
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/admin" className="text-muted-foreground hover:text-primary transition">
+                  <Link
+                    to="/admin"
+                    className="text-muted-foreground hover:text-primary transition"
+                  >
                     Admin Panel
                   </Link>
                 </li>
@@ -86,8 +97,10 @@ export default function Layout() {
             <div>
               <h4 className="font-bold mb-4">Contact</h4>
               <p className="text-muted-foreground text-sm">
-                Waliwita Junction, Kaduwela<br />
-                011 234 5678<br />
+                Waliwita Junction, Kaduwela
+                <br />
+                011 234 5678
+                <br />
                 info@ecoengineering.com
               </p>
             </div>

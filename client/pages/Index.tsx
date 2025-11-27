@@ -14,13 +14,15 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
-              Install & Maintenance<br />
+              Install & Maintenance
+              <br />
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Telecommunication Infrastructure
               </span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Building sustainable connectivity for the digital future with cutting-edge telecommunications solutions
+              Building sustainable connectivity for the digital future with
+              cutting-edge telecommunications solutions
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -39,8 +41,12 @@ export default function Index() {
       <section className="py-20 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Our Specialized Equipment</h2>
-            <p className="text-muted-foreground text-lg">Tools and machinery for reliable deployment and maintenance</p>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Our Specialized Equipment
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Tools and machinery for reliable deployment and maintenance
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -65,7 +71,9 @@ export default function Index() {
                 key={idx}
                 className="bg-card rounded-xl p-8 border border-border hover:border-primary transition group"
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition">{item.icon}</div>
+                <div className="text-4xl mb-4 group-hover:scale-110 transition">
+                  {item.icon}
+                </div>
                 <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
               </div>
@@ -78,8 +86,12 @@ export default function Index() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Our Sustainable Approach</h2>
-            <p className="text-muted-foreground text-lg">How we deliver telecom solutions differently</p>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Our Sustainable Approach
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              How we deliver telecom solutions differently
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -111,8 +123,13 @@ export default function Index() {
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="bg-card rounded-xl p-8 border border-border hover:border-primary transition">
-                  <div className="text-primary text-sm font-bold mb-3 opacity-50">{item.num}</div>
+                <div
+                  key={idx}
+                  className="bg-card rounded-xl p-8 border border-border hover:border-primary transition"
+                >
+                  <div className="text-primary text-sm font-bold mb-3 opacity-50">
+                    {item.num}
+                  </div>
                   <Icon className="w-8 h-8 text-primary mb-4" />
                   <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
                   <p className="text-muted-foreground text-sm">{item.desc}</p>
@@ -126,9 +143,12 @@ export default function Index() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-card to-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Build Sustainable Infrastructure?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            Ready to Build Sustainable Infrastructure?
+          </h2>
           <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Our experts are ready to discuss your project requirements and environmental goals.
+            Our experts are ready to discuss your project requirements and
+            environmental goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

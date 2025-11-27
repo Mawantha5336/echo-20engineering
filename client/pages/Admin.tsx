@@ -89,7 +89,9 @@ export default function Admin() {
     },
   ]);
 
-  const [activeTab, setActiveTab] = useState<"projects" | "equipment" | "poProjects">("projects");
+  const [activeTab, setActiveTab] = useState<
+    "projects" | "equipment" | "poProjects"
+  >("projects");
   const [projectForm, setProjectForm] = useState({
     projectName: "",
     customer: "",
@@ -149,7 +151,10 @@ export default function Admin() {
     toast.success("Project added successfully");
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, isEquipment: boolean = true) => {
+  const handleImageUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isEquipment: boolean = true,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -239,7 +244,9 @@ export default function Admin() {
       <div className="bg-gradient-to-r from-card to-muted border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="text-4xl font-bold mb-2">Admin Panel</h1>
-          <p className="text-muted-foreground">Manage projects and equipment data</p>
+          <p className="text-muted-foreground">
+            Manage projects and equipment data
+          </p>
         </div>
       </div>
 
@@ -288,33 +295,45 @@ export default function Admin() {
                 <h2 className="text-xl font-bold mb-6">Add New Project</h2>
                 <form onSubmit={handleAddProject} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Project Name</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Project Name
+                    </label>
                     <Input
                       type="text"
                       placeholder="Enter project name"
                       value={projectForm.projectName}
                       onChange={(e) =>
-                        setProjectForm({ ...projectForm, projectName: e.target.value })
+                        setProjectForm({
+                          ...projectForm,
+                          projectName: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Customer</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Customer
+                    </label>
                     <Input
                       type="text"
                       placeholder="Customer name"
                       value={projectForm.customer}
                       onChange={(e) =>
-                        setProjectForm({ ...projectForm, customer: e.target.value })
+                        setProjectForm({
+                          ...projectForm,
+                          customer: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">OEM</label>
+                    <label className="block text-sm font-medium mb-2">
+                      OEM
+                    </label>
                     <Input
                       type="text"
                       placeholder="OEM name"
@@ -327,39 +346,54 @@ export default function Admin() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Operator</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Operator
+                    </label>
                     <Input
                       type="text"
                       placeholder="Operator name"
                       value={projectForm.operator}
                       onChange={(e) =>
-                        setProjectForm({ ...projectForm, operator: e.target.value })
+                        setProjectForm({
+                          ...projectForm,
+                          operator: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Activity</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Activity
+                    </label>
                     <Input
                       type="text"
                       placeholder="e.g., Installation, Maintenance"
                       value={projectForm.activity}
                       onChange={(e) =>
-                        setProjectForm({ ...projectForm, activity: e.target.value })
+                        setProjectForm({
+                          ...projectForm,
+                          activity: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">No. of Sites</label>
+                    <label className="block text-sm font-medium mb-2">
+                      No. of Sites
+                    </label>
                     <Input
                       type="number"
                       placeholder="Number of sites"
                       value={projectForm.noOfSites}
                       onChange={(e) =>
-                        setProjectForm({ ...projectForm, noOfSites: e.target.value })
+                        setProjectForm({
+                          ...projectForm,
+                          noOfSites: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
@@ -383,31 +417,61 @@ export default function Admin() {
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-border bg-muted">
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Project Name</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Customer</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">OEM</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Operator</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Activity</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Sites</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Action</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Project Name
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Customer
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          OEM
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Operator
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Activity
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Sites
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold">
+                          Action
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {projects.length === 0 ? (
                         <tr>
-                          <td colSpan={7} className="px-6 py-8 text-center text-muted-foreground">
+                          <td
+                            colSpan={7}
+                            className="px-6 py-8 text-center text-muted-foreground"
+                          >
                             No projects added yet
                           </td>
                         </tr>
                       ) : (
                         projects.map((project) => (
-                          <tr key={project.id} className="border-b border-border hover:bg-muted transition">
-                            <td className="px-6 py-4 text-sm">{project.projectName}</td>
-                            <td className="px-6 py-4 text-sm">{project.customer}</td>
+                          <tr
+                            key={project.id}
+                            className="border-b border-border hover:bg-muted transition"
+                          >
+                            <td className="px-6 py-4 text-sm">
+                              {project.projectName}
+                            </td>
+                            <td className="px-6 py-4 text-sm">
+                              {project.customer}
+                            </td>
                             <td className="px-6 py-4 text-sm">{project.oem}</td>
-                            <td className="px-6 py-4 text-sm">{project.operator}</td>
-                            <td className="px-6 py-4 text-sm">{project.activity}</td>
-                            <td className="px-6 py-4 text-sm">{project.noOfSites}</td>
+                            <td className="px-6 py-4 text-sm">
+                              {project.operator}
+                            </td>
+                            <td className="px-6 py-4 text-sm">
+                              {project.activity}
+                            </td>
+                            <td className="px-6 py-4 text-sm">
+                              {project.noOfSites}
+                            </td>
                             <td className="px-6 py-4 text-sm">
                               <button
                                 onClick={() => handleDeleteProject(project.id)}
@@ -436,25 +500,35 @@ export default function Admin() {
                 <h2 className="text-xl font-bold mb-6">Add Equipment</h2>
                 <form onSubmit={handleAddEquipment} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Title</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Title
+                    </label>
                     <Input
                       type="text"
                       placeholder="Equipment title"
                       value={equipmentForm.title}
                       onChange={(e) =>
-                        setEquipmentForm({ ...equipmentForm, title: e.target.value })
+                        setEquipmentForm({
+                          ...equipmentForm,
+                          title: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Description</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Description
+                    </label>
                     <textarea
                       placeholder="Equipment description"
                       value={equipmentForm.description}
                       onChange={(e) =>
-                        setEquipmentForm({ ...equipmentForm, description: e.target.value })
+                        setEquipmentForm({
+                          ...equipmentForm,
+                          description: e.target.value,
+                        })
                       }
                       className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                       rows={4}
@@ -462,7 +536,9 @@ export default function Admin() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Image</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Image
+                    </label>
                     <input
                       type="file"
                       accept="image/*"
@@ -478,7 +554,9 @@ export default function Admin() {
                         />
                         <button
                           type="button"
-                          onClick={() => setEquipmentForm({ ...equipmentForm, image: "" })}
+                          onClick={() =>
+                            setEquipmentForm({ ...equipmentForm, image: "" })
+                          }
                           className="absolute top-2 right-2 bg-destructive text-white p-1 rounded hover:bg-destructive/80 transition"
                         >
                           ✕
@@ -519,11 +597,16 @@ export default function Admin() {
                         />
                       ) : (
                         <div className="w-full h-40 bg-muted rounded-lg mb-4 flex items-center justify-center">
-                          <ImageIcon size={40} className="text-muted-foreground" />
+                          <ImageIcon
+                            size={40}
+                            className="text-muted-foreground"
+                          />
                         </div>
                       )}
                       <h3 className="font-semibold mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm mb-4">{item.description}</p>
+                      <p className="text-muted-foreground text-sm mb-4">
+                        {item.description}
+                      </p>
                       <button
                         onClick={() => handleDeleteEquipment(item.id)}
                         className="w-full text-destructive hover:bg-destructive/10 p-2 rounded transition flex items-center justify-center gap-2"
@@ -548,51 +631,71 @@ export default function Admin() {
                 <h2 className="text-xl font-bold mb-6">Add P/O Project</h2>
                 <form onSubmit={handleAddPOProject} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">P/O Date</label>
+                    <label className="block text-sm font-medium mb-2">
+                      P/O Date
+                    </label>
                     <Input
                       type="text"
                       placeholder="e.g., 26.5.2009"
                       value={poProjectForm.poDate}
                       onChange={(e) =>
-                        setPOProjectForm({ ...poProjectForm, poDate: e.target.value })
+                        setPOProjectForm({
+                          ...poProjectForm,
+                          poDate: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Client</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Client
+                    </label>
                     <Input
                       type="text"
                       placeholder="Client name"
                       value={poProjectForm.client}
                       onChange={(e) =>
-                        setPOProjectForm({ ...poProjectForm, client: e.target.value })
+                        setPOProjectForm({
+                          ...poProjectForm,
+                          client: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Product</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Product
+                    </label>
                     <Input
                       type="text"
                       placeholder="Product name/description"
                       value={poProjectForm.product}
                       onChange={(e) =>
-                        setPOProjectForm({ ...poProjectForm, product: e.target.value })
+                        setPOProjectForm({
+                          ...poProjectForm,
+                          product: e.target.value,
+                        })
                       }
                       className="bg-background border-border"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Project Status</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Project Status
+                    </label>
                     <textarea
                       placeholder="Project status or details"
                       value={poProjectForm.projectStatus}
                       onChange={(e) =>
-                        setPOProjectForm({ ...poProjectForm, projectStatus: e.target.value })
+                        setPOProjectForm({
+                          ...poProjectForm,
+                          projectStatus: e.target.value,
+                        })
                       }
                       className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                       rows={4}
@@ -624,30 +727,62 @@ export default function Admin() {
                     </colgroup>
                     <thead>
                       <tr className="border-b border-border bg-muted">
-                        <th className="px-4 py-3 text-left text-sm font-semibold">P/O Date</th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold">Client</th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold">Product</th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold">Status</th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold text-center">Action</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">
+                          P/O Date
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">
+                          Client
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">
+                          Product
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold">
+                          Status
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-center">
+                          Action
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {poProjects.length === 0 ? (
                         <tr>
-                          <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                          <td
+                            colSpan={5}
+                            className="px-4 py-8 text-center text-muted-foreground"
+                          >
                             No P/O projects added yet
                           </td>
                         </tr>
                       ) : (
                         poProjects.map((project) => (
-                          <tr key={project.id} className="border-b border-border hover:bg-muted transition">
-                            <td className="px-4 py-4 text-sm whitespace-nowrap">{project.poDate}</td>
-                            <td className="px-4 py-4 text-sm whitespace-nowrap">{project.client}</td>
-                            <td className="px-4 py-4 text-sm truncate" title={project.product}>{project.product}</td>
-                            <td className="px-4 py-4 text-sm truncate" title={project.projectStatus}>{project.projectStatus}</td>
+                          <tr
+                            key={project.id}
+                            className="border-b border-border hover:bg-muted transition"
+                          >
+                            <td className="px-4 py-4 text-sm whitespace-nowrap">
+                              {project.poDate}
+                            </td>
+                            <td className="px-4 py-4 text-sm whitespace-nowrap">
+                              {project.client}
+                            </td>
+                            <td
+                              className="px-4 py-4 text-sm truncate"
+                              title={project.product}
+                            >
+                              {project.product}
+                            </td>
+                            <td
+                              className="px-4 py-4 text-sm truncate"
+                              title={project.projectStatus}
+                            >
+                              {project.projectStatus}
+                            </td>
                             <td className="px-4 py-4 text-sm flex justify-center">
                               <button
-                                onClick={() => handleDeletePOProject(project.id)}
+                                onClick={() =>
+                                  handleDeletePOProject(project.id)
+                                }
                                 className="text-destructive hover:bg-destructive/10 p-2 rounded transition"
                               >
                                 <Trash2 size={16} />
