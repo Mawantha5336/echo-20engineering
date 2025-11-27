@@ -1,9 +1,19 @@
-import { Link, Outlet } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Menu, X, LogOut, LogIn } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setMenuOpen(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -28,6 +38,33 @@ export default function Layout() {
               <Link to="/admin" className="hover:text-primary transition">
                 Admin Panel
               </Link>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-muted-foreground">
+                    Hi, {user?.name}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="flex items-center gap-2"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2"
+                  >
+                    <LogIn size={16} />
+                    Login
+                  </Button>
+                </Link>
+              )}
             </nav>
 
             <button
@@ -54,6 +91,29 @@ export default function Layout() {
               >
                 Admin Panel
               </Link>
+              {isAuthenticated ? (
+                <>
+                  <div className="px-2 py-2 text-sm text-muted-foreground">
+                    Logged in as {user?.name}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 px-2 py-2 hover:bg-muted rounded transition text-destructive"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 px-2 py-2 hover:bg-muted rounded transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <LogIn size={16} />
+                  Login
+                </Link>
+              )}
             </nav>
           )}
         </div>
