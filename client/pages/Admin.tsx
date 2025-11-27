@@ -70,6 +70,7 @@ export default function Admin() {
   const [equipmentForm, setEquipmentForm] = useState({
     title: "",
     description: "",
+    image: "",
   });
 
   const handleAddProject = (e: React.FormEvent) => {
@@ -109,6 +110,20 @@ export default function Admin() {
     toast.success("Project added successfully");
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, isEquipment: boolean = true) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64String = event.target?.result as string;
+      if (isEquipment) {
+        setEquipmentForm({ ...equipmentForm, image: base64String });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleAddEquipment = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -121,12 +136,14 @@ export default function Admin() {
       id: Date.now().toString(),
       title: equipmentForm.title,
       description: equipmentForm.description,
+      image: equipmentForm.image,
     };
 
     setEquipment([...equipment, newEquipment]);
     setEquipmentForm({
       title: "",
       description: "",
+      image: "",
     });
     toast.success("Equipment added successfully");
   };
@@ -357,6 +374,32 @@ export default function Admin() {
                       className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                       rows={4}
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Image</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, true)}
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                    />
+                    {equipmentForm.image && (
+                      <div className="mt-3 relative">
+                        <img
+                          src={equipmentForm.image}
+                          alt="Preview"
+                          className="w-full h-32 object-cover rounded-lg border border-border"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setEquipmentForm({ ...equipmentForm, image: "" })}
+                          className="absolute top-2 right-2 bg-destructive text-white p-1 rounded hover:bg-destructive/80 transition"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   <Button
