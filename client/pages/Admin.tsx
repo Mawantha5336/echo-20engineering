@@ -246,10 +246,10 @@ export default function Admin() {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-border">
+        <div className="flex gap-4 mb-8 border-b border-border overflow-x-auto">
           <button
             onClick={() => setActiveTab("projects")}
-            className={`px-4 py-3 font-semibold transition border-b-2 ${
+            className={`px-4 py-3 font-semibold transition border-b-2 whitespace-nowrap ${
               activeTab === "projects"
                 ? "border-primary text-primary"
                 : "border-transparent text-muted-foreground hover:text-foreground"
@@ -259,13 +259,23 @@ export default function Admin() {
           </button>
           <button
             onClick={() => setActiveTab("equipment")}
-            className={`px-4 py-3 font-semibold transition border-b-2 ${
+            className={`px-4 py-3 font-semibold transition border-b-2 whitespace-nowrap ${
               activeTab === "equipment"
                 ? "border-primary text-primary"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             Equipment
+          </button>
+          <button
+            onClick={() => setActiveTab("poProjects")}
+            className={`px-4 py-3 font-semibold transition border-b-2 whitespace-nowrap ${
+              activeTab === "poProjects"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            P/O Projects
           </button>
         </div>
 
